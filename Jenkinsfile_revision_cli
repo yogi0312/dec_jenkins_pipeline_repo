@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    stages {
+        stage("STAGE1") {
+            steps {
+                sh 'sleep 5'
+                echo "This is stage 1"
+            }
+        }
+        stage('stage2') {
+            steps {
+                script{
+                    def country ='India'
+                    def country_upper = country.toUpperCase()
+                    echo country_upper
+                }
+            }
+        }
+    }
+}
