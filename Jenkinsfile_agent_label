@@ -22,7 +22,7 @@ pipeline {
         stage ('stage3') {
             steps {
                 script{
-                    def names = ('Yogesh', 'Tushanth', 'Basavaraj')
+                    def names = ['Yogesh', 'Tushanth', 'Basavaraj']
                     echo "The names are: ${names}"
                     echo "Length of names: ${names.size()}"
                 }
