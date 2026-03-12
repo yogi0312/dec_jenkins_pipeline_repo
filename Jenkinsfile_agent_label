@@ -2,9 +2,12 @@ pipeline {
     agent {label 'slave3'}
     stages {
         stage('stage1') {
-            script {
-                def employee = ["Yogesh", "DevOps Engg", 900000, "India"]
+            steps {
+                script {
+                def employee = ['Yogesh', 'DevOps Engg', 900000, 'India']
                 echo "The employee names are: ${employee}"
+                }
+            
             }
         }
         stage('stage2') {
@@ -19,7 +22,7 @@ pipeline {
         stage ('stage3') {
             steps {
                 script{
-                    def names = ("Yogesh", "Tushanth", "Basavaraj")
+                    def names = ('Yogesh', 'Tushanth', 'Basavaraj')
                     echo "The names are: ${names}"
                     echo "Length of names: ${names.size()}"
                 }
