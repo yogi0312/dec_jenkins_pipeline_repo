@@ -1,0 +1,25 @@
+pipeline {
+    agent any
+    stages{
+        stage ("STAGE1") {
+            steps {
+                sh '''
+                #!/bin/bash
+                pwd
+                ls -lrt
+                sleep 5
+            '''
+                echo "This is stage 1"
+            }
+        }
+        stage ('stage2') {
+            steps {
+                script{
+                    def list_data = ['cow','cat','ox','cow',1,2,3,true,2.5]
+                    echo "List: ${list_data}"
+                    echo "Length: ${list_data.size()}"
+                }
+            }
+        }
+    }
+}
