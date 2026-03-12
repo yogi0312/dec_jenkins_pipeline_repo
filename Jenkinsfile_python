@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    stages {
+        stage('stage1') {
+            steps {
+                echo "Hello World"
+            }
+        }
+        stage('stage2') {
+            steps {
+                script{
+                    def country ='India'
+                    def country_upper = country.toUpperCase()
+                    echo country_upper
+                }
+            }
+        }
+        stage ('stage3') {
+            steps {
+                script{
+                    def list_data = ['cow','cat','ox','cow',1,2,3,true,2.5]
+                    echo "List: ${list_data}"
+                    echo "Length: ${list_data.size()}"
+                }
+            }
+        }
+    }
+}
