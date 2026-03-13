@@ -1,9 +1,9 @@
 pipeline {
     agent none
     parameters {
-        stringParam ( Name: 'NAME', Default_Value: '', Description: 'Please tell me your name')
-        booleanParam( Name: 'SKIP_TEST', Default_Value: 'false', Description: 'Want to skip test')
-        choiceParam( Name: 'BRANCH', Choices: ['master','stagging','prod'], Description: '')
+        string ( name: 'NAME', defaultValue: '', description: 'Please tell me your name')
+        booleanParam( name: 'SKIP_TEST', description: 'Want to skip test')
+        choice( name: 'BRANCH', choices: ['master','stagging','prod'], description: '')
     }
     stages {
         stage('stage1') {
