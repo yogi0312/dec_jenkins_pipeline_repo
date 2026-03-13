@@ -7,8 +7,10 @@ pipeline {
     stages {
         stage('stage1') { 
             steps {
-                echo "DOCKER_USER: ${DOCKER_USER}"
-                echo "AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}"
+                // echo "DOCKER_USER: ${DOCKER_USER}"
+                // echo "AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}"
+                echo "DOCKER_USER: ${env.DOCKER_USER}" //Using to check whether it will support env. or what
+                echo "AWS_ACCESS_KEY: ${env.AWS_ACCESS_KEY}" //Using to check whether it will support env. or what
 
                 sh '''
                     env
