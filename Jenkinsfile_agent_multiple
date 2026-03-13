@@ -1,11 +1,13 @@
 pipeline {
+    agent none
     // agent {label 'slave3 || slave2'}
     // agent {label 'slave1 && slave3'}
     // agent {label 'slave1 || slave3 && !master'}
     // agent {label 'master && !slave1 || !slave2 || !slave3'} (Runned on slave3)
-    agent {label 'master && "!slave1 || !slave2 || !slave3"'}
+    // agent {label 'master && "!slave1 || !slave2 || !slave3"'} (There are no nodes with the label)
     stages {
         stage('stage1') {
+            agent {label 'slave3 || slave2'}
             steps {
                 script {
                 def employee = ['Yogesh', 'DevOps Engg', 900000, 'India']
@@ -15,6 +17,7 @@ pipeline {
             }
         }
         stage('stage2') {
+            agent {label 'slave1 || slave3'}
             steps {
                 script{
                     def country ='India'
@@ -24,6 +27,7 @@ pipeline {
             }
         }
         stage ('stage3') {
+            agent {label 'slave2 || slave1'}
             steps {
                 script{
                     def names = ['Yogesh', 'Tushanth', 'Basavaraj']
