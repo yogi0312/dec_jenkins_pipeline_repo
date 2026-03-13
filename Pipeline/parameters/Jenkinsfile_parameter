@@ -1,7 +1,8 @@
 pipeline {
     agent none
     parameters {
-        string ( name: 'NAME', defaultValue: '', description: 'Please tell me your name')
+        string ( name: 'NAME', defaultValue: '', description: 'Please tell me your name') 
+        //name, defaultValue,description: should be in lower case
         booleanParam( name: 'SKIP_TEST', description: 'Want to skip test')
         choice( name: 'BRANCH', choices: ['master','stagging','prod'], description: '')
     }
@@ -12,6 +13,12 @@ pipeline {
                 echo "NAME: ${params.NAME}"
                 echo "SKIP_TEST: ${params.SKIP_TEST}"
                 echo  "BRANCH TO DEPLOY: ${params.BRANCH}"
+
+                sh '''
+                    echo "NAME: ${NAME}"
+                    echo "SKIP_TEST: ${SKIP_TEST}"
+                    echo "BRANCH TO DEPLOY: ${BRANCH}"
+                '''
                 }
             }
         }
