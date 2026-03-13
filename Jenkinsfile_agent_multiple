@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'slave3' || label 'slave2'}
+    agent {label 'slave3 || slave2'}
     stages {
         stage('stage1') {
             steps {
