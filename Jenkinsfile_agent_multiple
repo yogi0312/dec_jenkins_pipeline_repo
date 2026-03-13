@@ -1,0 +1,32 @@
+pipeline {
+    agent {label 'slave3' || label 'slave2'}
+    stages {
+        stage('stage1') {
+            steps {
+                script {
+                def employee = ['Yogesh', 'DevOps Engg', 900000, 'India']
+                echo "The employee names are: ${employee}"
+                }
+            
+            }
+        }
+        stage('stage2') {
+            steps {
+                script{
+                    def country ='India'
+                    def country_upper = country.toUpperCase()
+                    echo country_upper
+                }
+            }
+        }
+        stage ('stage3') {
+            steps {
+                script{
+                    def names = ['Yogesh', 'Tushanth', 'Basavaraj']
+                    echo "The names are: ${names}"
+                    echo "Length of names: ${names.size()}"
+                }
+            }
+        }
+    }
+}
