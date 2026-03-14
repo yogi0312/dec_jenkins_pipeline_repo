@@ -21,6 +21,12 @@ pipeline {
                         sh 'sleep 5'
                     }
                 }
+                stage('MAC TESTING') {
+                    steps {
+                        echo "This is MAC TESTING running"
+                        sh 'sleep 5'
+                    }
+                }
             }
         }
         stage('FINAL STAGE') { 
@@ -29,5 +35,5 @@ pipeline {
                 sh 'sleep 5'
                 }
             }
+        }
     }
-}
