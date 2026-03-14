@@ -18,15 +18,14 @@ pipeline {
                 }
             }
             stage('stage2') {
-            environment { // (To check whether env works at stage level also)
+                environment { // (To check whether env works at stage level also)
                     STAGE = 'STAGE1'
                 }
             steps {
                 echo "DOCKER_USER: ${env.DOCKER_USER}" 
                 echo "AWS_ACCESS_KEY: ${env.AWS_ACCESS_KEY}"
                 echo "STAGE: ${env.STAGE}"
-                sh 
-                '''
+                sh '''
                     env
                 '''
                 }
