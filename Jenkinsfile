@@ -12,6 +12,7 @@ pipeline {
                 '''
             }
         }
+    }
         stage('PARALLEL TESTING') {
             parallel {
                 stage('WINDOWS TESTING') {
@@ -42,4 +43,3 @@ pipeline {
             }
         }
     }
-}
