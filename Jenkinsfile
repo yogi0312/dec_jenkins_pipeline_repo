@@ -39,7 +39,7 @@ pipeline {
             steps {
                 echo "This is FINAL STAGE running"
                 sh 'sleep 5'
-                }
             }
         }
     }
+}
