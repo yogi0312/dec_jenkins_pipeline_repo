@@ -6,7 +6,6 @@ pipeline {
                 echo "This is stage 1 running"
                 sh '''
                     sleep 5
-                    exit 1 // (Error to check whether it will stop the pipeline or not)
                 '''
             }
         }
@@ -21,7 +20,10 @@ pipeline {
                 stage('LINUX TESTING') {
                     steps {
                         echo "This is LINUX TESTING running"
-                        sh 'sleep 5'
+                        sh '''
+                        sleep 5
+                        exit 1  // (To check whether it will mark the parallel stage as failed or not) 
+                    '''
                     }
                 }
                 stage('MAC TESTING') {
