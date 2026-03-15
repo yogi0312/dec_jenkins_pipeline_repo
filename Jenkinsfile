@@ -32,7 +32,7 @@ pipeline {
         }
         stage('when parameter') {
             when { 
-                expression {parameters.DEPLOY == true} // This stage will only run if the DEPLOY parameter is true
+                expression {params.DEPLOY == true} // This stage will only run if the DEPLOY parameter is true
             } 
             steps {
                 echo "This is DEPLOY PARAMETER is TRUE STAGE running"
