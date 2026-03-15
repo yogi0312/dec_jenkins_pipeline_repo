@@ -8,49 +8,26 @@ pipeline {
         CURRENT_ENV = 'prod' // Set the environment variable to 'prod' for testing purposes
     }
     stages {
-        stage('CHECKOUT_REPO') {
-            steps {
-                checkout ([ $class: 'GitSCM',
-                branches: [[name: '*/main']], 
-                extensions: [], 
-                userRemoteConfigs: [[credentialsId: 'jaintpharsha', url: 'https://github.com/jaintpharsha/mern_3tire.git']]
-                // This step checks out the code from the specified Git repository and branch using the provided credentials.
-                ])
-               sh '''
-                    echo GIT_BRANCH: $GIT_BRANCH
-                    echo BRANCH_NAME: $BRANCH_NAME
-                '''
-            }
-                
-        }
-        
         stage('stage1 when branch is main') {
             when {
-                expression {
-                    return env.GIT_BRANCH == 'origin/main'
-                }
+                branch 'main' // This stage will only run if the current branch is 'main'
             } 
             steps {
-                echo "This is stage 1 running"
+                echo "This is stage 1 when branch is main running"
                 sh '''
-                    pwd
-                    ls -lrt
                     sleep 5
+                    exit 1
                 '''
             }
         }
-        stage('when environment') {
+        stage('when environment is prod') {
             when {
                 environment name: 'CURRENT_ENV', value: 'prod' 
                 // This stage will run only if the CURRENT_ENV environment variable is set to 'prod'
             } 
             steps {
                 echo "This is ENVIRONMENT VARIABLE SET TO PROD STAGE running"
-                sh '''
-                    pwd
-                    ls -lrt
-                    sleep 5
-                '''
+                sh 'sleep 5'
             }
         }
         stage('when parameter') {
