@@ -13,7 +13,7 @@ pipeline {
                 checkout ([ $class: 'GitSCM',
                 branches: [[name: '*/main']], 
                 extensions: [], 
-                userRemoteConfigs: [[credentialsId: 'jaintpharsha', url: 'https://github.com/jaintpharsha/mern_3tire.git']]
+                userRemoteConfigs: [[credentialsId: 'yogi-git-jen', url: 'https://github.com/yogi0312/dec_jenkins_pipeline_repo.git']]
                 // This step checks out the code from the specified Git repository and branch using the provided credentials.
                 ])
                sh '''
