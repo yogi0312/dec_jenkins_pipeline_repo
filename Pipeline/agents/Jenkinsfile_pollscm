@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    triggers {
+        pollSCM('H/5 * * * *') // Poll the SCM every 5 minutes to check for changes
+    }
     environment {
         CURRENT_ENV = 'prod' // Set the environment variable to 'prod' for testing purposes
     }
