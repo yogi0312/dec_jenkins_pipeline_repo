@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+    environment {
+        CURRENT_ENV = 'prod' // Set the environment variable to 'prod' for testing purposes
+    }
+    stages {
+        stage('CHECKOUT_REPO') {
+            steps {
+                checkout ([ $class: 'GitSCM',
+                branches: [[name: '*/main']], 
+                extensions: [], 
+                userRemoteConfigs: [[credentialsId: 'yogi-git-jen', url: 'https://github.com/yogi0312/dec_jenkins_pipeline_repo.git']]
+                // This step checks out the code from the specified Git repository and branch using the provided credentials.
+                ])
+               sh '''
+                    echo GIT_BRANCH: $GIT_BRANCH
+                    echo BRANCH_NAME: $BRANCH_NAME
+                '''
+            }
+                
+        }
+        
+        stage('stage1 when branch is main') {
+            when {
+                expression {
+                    return env.GIT_BRANCH == 'origin/main'
+                }
+            } 
+            steps {
+                echo "This is stage 1 running"
+                sh '''
+                    pwd
+                    ls -lrt
+                    sleep 5
+                '''
+            }
+        }
+    }
+}

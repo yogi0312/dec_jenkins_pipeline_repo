@@ -1,38 +1,36 @@
 pipeline {
-    agent any
-    environment {
-        CURRENT_ENV = 'prod' // Set the environment variable to 'prod' for testing purposes
-    }
+    // agent none
+    // agent {label 'slave3 || slave2'}
+    agent {label 'slave1 && slave3'}
+    // agent {label 'slave1 || slave3 && !master'}
+    // agent {label 'master && !slave1 || !slave2 || !slave3'} (Runned on slave3)
+    // agent {label 'master && "!slave1 || !slave2 || !slave3"'} (There are no nodes with the label)
     stages {
-        stage('CHECKOUT_REPO') {
+        stage('stage1') { 
             steps {
-                checkout ([ $class: 'GitSCM',
-                branches: [[name: '*/main']], 
-                extensions: [], 
-                userRemoteConfigs: [[credentialsId: 'yogi-git-jen', url: 'https://github.com/yogi0312/dec_jenkins_pipeline_repo.git']]
-                // This step checks out the code from the specified Git repository and branch using the provided credentials.
-                ])
-               sh '''
-                    echo GIT_BRANCH: $GIT_BRANCH
-                    echo BRANCH_NAME: $BRANCH_NAME
-                '''
-            }
-                
-        }
-        
-        stage('stage1 when branch is main') {
-            when {
-                expression {
-                    return env.GIT_BRANCH == 'origin/main'
+                script {
+                def employee = ['Yogesh', 'DevOps Engg', 900000, 'India']
+                echo "The employee names are: ${employee}"
                 }
-            } 
+            
+            }
+        }
+        stage('stage2') {
             steps {
-                echo "This is stage 1 running"
-                sh '''
-                    pwd
-                    ls -lrt
-                    sleep 5
-                '''
+                script{
+                    def country ='India'
+                    def country_upper = country.toUpperCase()
+                    echo country_upper
+                }
+            }
+        }
+        stage ('stage3') {
+            steps {
+                script{
+                    def names = ['Yogesh', 'Tushanth', 'Basavaraj']
+                    echo "The names are: ${names}"
+                    echo "Length of names: ${names.size()}"
+                }
             }
         }
     }
