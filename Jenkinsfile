@@ -4,7 +4,9 @@
         cron('H/5 * * * *')  // This line sets up a cron trigger to run the pipeline every 5 minutes.  
     }
     options {
-        timeout(time: 1, unit: 'MINUTES') 
+        ansiColor('xterm') 
+// This option enables ANSI color support in the console output, making it easier to read and distinguish different types of messages.
+        // timeout(time: 1, unit: 'MINUTES') 
 // This line sets a timeout for the entire pipeline, specifying that it should not run for more than 1 minute. If the pipeline exceeds this time limit, it will be automatically aborted.
     }
     environment {
