@@ -4,7 +4,7 @@
         cron('H/5 * * * *')  // This line sets up a cron trigger to run the pipeline every 5 minutes.  
     }
     options {
-        // timeout(time: 1, unit: 'MINUTES') 
+        timeout(time: 5, unit: 'MINUTES') 
 // This line sets a timeout for the entire pipeline, specifying that it should not run for more than 1 minute. If the pipeline exceeds this time limit, it will be automatically aborted.
     }
     environment {
