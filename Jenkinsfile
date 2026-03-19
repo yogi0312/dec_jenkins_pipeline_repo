@@ -4,9 +4,7 @@
         cron('H/5 * * * *')  // This line sets up a cron trigger to run the pipeline every 5 minutes.  
     }
     options {
-        ansiColor('xterm')  
-// This line enables ANSI color support in the console output, allowing for colored text and improved readability.
-        // timeout(time: 5, unit: 'MINUTES') 
+        timeout(time: 5, unit: 'MINUTES') 
 // This line sets a timeout for the entire pipeline, specifying that it should not run for more than 1 minute. If the pipeline exceeds this time limit, it will be automatically aborted.
     }
     environment {
@@ -15,6 +13,7 @@
     stages {
         stage('CHECKOUT_REPO') {
             steps {
+                ansiColor('xterm')
                 checkout ([ $class: 'GitSCM',
                 branches: [[name: '*/main']], 
                 extensions: [], 
@@ -36,6 +35,7 @@
                 }
             } 
             steps {
+                ansiColor('xterm')
                 echo "This is stage 1 running"
                 sh '''
                     pwd
