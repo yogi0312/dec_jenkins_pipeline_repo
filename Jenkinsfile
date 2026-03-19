@@ -1,36 +1,45 @@
-pipeline {
-    // agent none
-    // agent {label 'slave3 || slave2'}
-    agent {label 'slave1 && slave3'}
-    // agent {label 'slave1 || slave3 && !master'}
-    // agent {label 'master && !slave1 || !slave2 || !slave3'} (Runned on slave3)
-    // agent {label 'master && "!slave1 || !slave2 || !slave3"'} (There are no nodes with the label)
+ pipeline {
+    agent any
+    triggers{
+        cron('H/5 * * * *')  // This line sets up a cron trigger to run the pipeline every 5 minutes.  
+    }
+    options {
+        timeout(time: 1, unit: 'minutes') 
+// This line sets a timeout for the entire pipeline, specifying that it should not run for more than 1 minute. If the pipeline exceeds this time limit, it will be automatically aborted.
+    }
+    environment {
+        CURRENT_ENV = 'prod' // Set the environment variable to 'prod' for testing purposes
+    }
     stages {
-        stage('stage1') { 
+        stage('CHECKOUT_REPO') {
             steps {
-                script {
-                def employee = ['Yogesh', 'DevOps Engg', 900000, 'India']
-                echo "The employee names are: ${employee}"
-                }
-            
+                checkout ([ $class: 'GitSCM',
+                branches: [[name: '*/main']], 
+                extensions: [], 
+                userRemoteConfigs: [[credentialsId: 'yogi-git-jen', url: 'https://github.com/yogi0312/dec_jenkins_pipeline_repo.git']]
+                // This step checks out the code from the specified Git repository and branch using the provided credentials.
+                ])
+               sh '''
+                    echo GIT_BRANCH: $GIT_BRANCH
+                    echo BRANCH_NAME: $BRANCH_NAME
+                '''
             }
+                
         }
-        stage('stage2') {
-            steps {
-                script{
-                    def country ='India'
-                    def country_upper = country.toUpperCase()
-                    echo country_upper
+        
+        stage('stage1 when branch is main') {
+            when {
+                expression {
+                    return env.GIT_BRANCH == 'origin/main'
                 }
-            }
-        }
-        stage ('stage3') {
+            } 
             steps {
-                script{
-                    def names = ['Yogesh', 'Tushanth', 'Basavaraj']
-                    echo "The names are: ${names}"
-                    echo "Length of names: ${names.size()}"
-                }
+                echo "This is stage 1 running"
+                sh '''
+                    pwd
+                    ls -lrt
+                    sleep 5
+                '''
             }
         }
     }
