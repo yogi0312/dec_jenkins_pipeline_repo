@@ -39,7 +39,8 @@
                 echo "This is stage 1 running"
                 sh '''
                     pwd
-                    \033[32mls -lrt
+                    echo -e \033[32mListing files:
+                    ls -lrt
                     sleep 5
                 '''
             }
