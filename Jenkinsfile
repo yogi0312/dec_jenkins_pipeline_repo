@@ -39,7 +39,7 @@
                 echo "This is stage 1 running"
                 sh '''
                     pwd
-                    \033ls -lrt
+                    \033[32mls -lrt\033[0m
                     sleep 5
                 '''
             }
